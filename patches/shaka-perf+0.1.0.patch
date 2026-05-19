@@ -1,0 +1,23 @@
+diff --git a/node_modules/shaka-perf/dist/config-loader/load-config-file.js b/node_modules/shaka-perf/dist/config-loader/load-config-file.js
+index 1111111..2222222 100644
+--- a/node_modules/shaka-perf/dist/config-loader/load-config-file.js
++++ b/node_modules/shaka-perf/dist/config-loader/load-config-file.js
+@@ -54,9 +54,15 @@ async function loadConfigFile(configPath) {
+             configModule = tsModule.default?.default ?? tsModule.default ?? tsModule;
+         }
+         catch (esmError) {
+-            // Fallback to CJS API (e.g. Node 18 CommonJS context)
+-            console.log(`tsx ESM import failed, falling back to CJS API...`);
+-            console.log(esmError instanceof Error ? esmError.stack : esmError);
++            // PATCH (level_access_performance_tests): tsx 4.22's ESM `tsImport`
++            // wraps the config file with a CJS-compat shim that references
++            // `__filename`, which ReferenceErrors in real ESM scope. The CJS
++            // fallback below handles it correctly; suppress the noisy stack
++            // trace unless SHAKAPERF_DEBUG_CONFIG_LOAD is set.
++            if (process.env.SHAKAPERF_DEBUG_CONFIG_LOAD) {
++                console.warn(`tsx ESM import failed, falling back to CJS API...`);
++                console.warn(esmError instanceof Error ? esmError.stack : esmError);
++            }
+             // eslint-disable-next-line @typescript-eslint/no-require-imports
+             const tsx = require('tsx/cjs/api');
+             const tsModule = tsx.require(absolutePath, __filename);

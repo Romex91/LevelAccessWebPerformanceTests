@@ -1,0 +1,12 @@
+node_modules/
+compare-results/
+audit-results/
+visreg_data/
+.DS_Store
+*.log
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

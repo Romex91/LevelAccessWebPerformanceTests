@@ -1,0 +1,19 @@
+{
+  "name": "level-access-performance-tests",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Performance comparison between ap-smokehouse.popmenu.com/atlmenu with and without loadUserWay=true",
+  "scripts": {
+    "compare": "shaka-perf compare",
+    "postinstall": "patch-package"
+  },
+  "dependencies": {
+    "patch-package": "^8.0.0",
+    "playwright-core": "^1.50.0",
+    "shaka-perf": "^0.1.0",
+    "shaka-shared": "^0.1.0"
+  },
+  "engines": {
+    "node": ">=20.6.0"
+  }
+}
