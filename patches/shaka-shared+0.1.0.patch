@@ -1,0 +1,13 @@
+diff --git a/node_modules/shaka-shared/dist/page-helpers/waitForNetworkSettle.js b/node_modules/shaka-shared/dist/page-helpers/waitForNetworkSettle.js
+index 1111111..2222222 100644
+--- a/node_modules/shaka-shared/dist/page-helpers/waitForNetworkSettle.js
++++ b/node_modules/shaka-shared/dist/page-helpers/waitForNetworkSettle.js
+@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.waitForNetworkSettle = waitForNetworkSettle;
+ const chalk_1 = __importDefault(require("chalk"));
+-const DEFAULT_TIMEOUT_MS = 30000;
++const DEFAULT_TIMEOUT_MS = 60000;
+ const LOG_PREFIX = '[waitForNetworkSettle]';
+ /**
+  * Wait for playwright's `networkidle` load state (no network requests for

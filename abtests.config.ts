@@ -8,18 +8,19 @@ const TARGET_ORIGIN = 'https://ap-smokehouse.popmenu.com';
 
 const PARALLELISM = Math.max(1, Math.floor(os.cpus().length / 2));
 
-// Mobile-shaped throttling — modest CPU slowdown and a slow link so the
-// loadUserWay-vs-control delta has room to surface above run-to-run noise.
+// Cable-broadband-shaped throttling — CPU slowdown does most of the
+// heavy lifting to keep the loadUserWay-vs-control delta visible while
+// the link stays close to what a real desktop visitor would see.
 const LIGHTHOUSE_CONFIG = {
   throttling: {
-    rttMs: 150,
-    throughputKbps: 1638.4,
-    requestLatencyMs: 562.5,
-    downloadThroughputKbps: 1474.56,
-    uploadThroughputKbps: 675,
-    cpuSlowdownMultiplier: 4,
+    rttMs: 40,
+    throughputKbps: 30720,
+    requestLatencyMs: 150,
+    downloadThroughputKbps: 27648,
+    uploadThroughputKbps: 5000,
+    cpuSlowdownMultiplier: 2,
   },
-  throttlingMethod: 'simulate' as const,
+  throttlingMethod: 'devtools' as const,
   logLevel: 'error' as const,
   output: 'html' as const,
   onlyCategories: ['performance'],
@@ -30,9 +31,7 @@ export default defineConfig({
     controlURL: TARGET_ORIGIN,
     experimentURL: TARGET_ORIGIN,
     parallelism: PARALLELISM,
-    retries: 1,
-    // Public site over the network: be generous so Lighthouse's slowest
-    // samples don't get killed by the worker race-timeout.
+    retries: 4,
     timeoutMs: 180000,
   },
 

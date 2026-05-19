@@ -23,16 +23,5 @@ by `patch-package` on `postinstall`.
 
 ```bash
 yarn install
-yarn compare            # runs shaka-perf compare
+yarn compare
 ```
-
-To silence the tsx-ESM fallback warning the patch suppresses, set
-`SHAKAPERF_DEBUG_CONFIG_LOAD=1` to re-enable the original stack trace
-for debugging.
-
-## Bumping shaka-perf / shaka-shared
-
-Edit the `^0.1.0` ranges in `package.json` and re-run `yarn install`.
-If the `patches/shaka-perf+0.1.0.patch` file no longer applies cleanly
-against a newer version, delete it and the warning returns — it's
-suppression-only, not load-bearing.
